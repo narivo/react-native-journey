@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "awesome-expo-app",
-    "slug": "online-awesome-expo",
+    "name": "anilist-graphql",
+    "slug": "anilist-graphql",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -14,9 +14,7 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
@@ -28,12 +26,6 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    },
-    "extra": {
-      "eas": {
-        "projectId": "3b580ca2-d2b9-4471-b860-c62e12b1f01f"
-      }
-    },
-    "owner": "narivo"
+    }
   }
 }
