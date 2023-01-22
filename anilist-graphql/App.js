@@ -1,54 +1,39 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { NavigationContainer } from "@react-navigation/native";
-import { LinearGradient } from "expo-linear-gradient";
-import { BlurView } from "@react-native-community/blur";
+import App from "./src/App.tsx";
+import React, { useCallback, useEffect, useState } from "react";
+import { registerRootComponent } from "expo";
+import * as SplashScreen from "expo-splash-screen";
 
-const Tab = createBottomTabNavigator();
+SplashScreen.preventAutoHideAsync();
 
-const Screen1 = () => {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-};
+function AnilistApp() {
+  const [appIsReady, setAppIsReady] = useState(false);
 
-export default function App() {
-  return (
-    <NavigationContainer>
-      <Tab.Navigator
-        screenOptions={{
-          headerTransparent: true,
-          tabBarBackground: () => (
-            <View
-              style={{
-                flex: 1,
-                backgroundColor: "#18181b",
-              }}
-            >
-              <BlurView
-                style={{
-                  flexGrow: 1,
-                }}
-              />
-            </View>
-          ),
-        }}
-      >
-        <Tab.Screen name="Screen1" component={Screen1} />
-      </Tab.Navigator>
-    </NavigationContainer>
-  );
+  useEffect(() => {
+    async function prepare() {
+      try {
+        await new Promise((resolve) => setTimeout(resolve, 2000));
+      } catch (e) {
+        console.warn(e);
+      } finally {
+        setAppIsReady(true);
+      }
+    }
+
+    prepare();
+  }, []);
+
+  const onLayoutRootView = useCallback(async () => {
+    if (appIsReady) {
+      await SplashScreen.hideAsync();
+    }
+  }, [appIsReady]);
+
+  if (!appIsReady) {
+    return null;
+  }
+
+  return <App onLayoutRootView={onLayoutRootView} />;
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
+registerRootComponent(AnilistApp);
+export default AnilistApp;
