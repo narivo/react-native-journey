@@ -8,8 +8,11 @@ import Library from "./screens/Library";
 import Downloads from "./screens/Downloads";
 import ProfileBarButton from "./components/ProfileTabButton";
 import { LinearGradient } from "expo-linear-gradient";
+import * as NavigationBar from "expo-navigation-bar";
 
 const Tab = createBottomTabNavigator();
+
+NavigationBar.setBackgroundColorAsync("#1a1a1b");
 
 type AppProps = {
   onLayoutRootView: () => Promise<void>;
@@ -44,7 +47,7 @@ export default function App(props: AppProps) {
               default:
                 break;
             }
-            return <Image source={icon} fadeDuration={0} />;
+            return <Image className="w-9 h-9" source={icon} fadeDuration={0} />;
           },
           tabBarStyle: { height: 75 },
           tabBarBackground: () => <View className="grow bg-deep-dark" />,
